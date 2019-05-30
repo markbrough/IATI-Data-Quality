@@ -9,10 +9,8 @@ Setup
 
 Run the following commands to bootstrap your environment ::
 
-    git clone https://github.com/pwyf/aid-transparency-tracker
+    git clone --recursive https://github.com/pwyf/aid-transparency-tracker
     cd aid-transparency-tracker
-    git submodule init
-    git submodule update
     pipenv sync
     cp .env.example .env
     npm install
