@@ -16,8 +16,7 @@ Run the following commands to bootstrap your environment ::
     npm install
     npm run-script build
 
-Once you have installed your DBMS, run the following to create your app's
-database tables and perform the initial migration ::
+Once you have installed your DBMS and referenced it in your .env file, run the following to create your app's database tables and perform the initial migration ::
 
     pipenv run flask db upgrade
 
@@ -28,6 +27,8 @@ Create a new superuser with ::
 Next you need to seed the database. Organisations can be imported to the database from CSV ::
 
     pipenv run flask setup orgs [import_data/example_organisations.csv]
+
+As well as importing components and indicators:
 
     pipenv run flask setup components import_data/2018_components.csv
     pipenv run flask setup indicators import_data/2018_indicators.csv
