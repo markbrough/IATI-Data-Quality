@@ -16,8 +16,15 @@ def load_tests():
     all_tests = [t for feature_filepath in feature_filepaths
                  for t in tester.load_feature(feature_filepath).tests]
 
-    # current_data_test = tester.load_feature(
-    #     join(base_path, 'current_data.feature')).tests[0]
+    # Remove the current data condition from tests.
+    for test in all_tests:
+        test.steps = [x for x in test.steps
+                      if not (x.step_type == 'given' and
+                              x.text == 'the activity is current')]
+
+    current_data_test = tester.load_feature(
+        join(base_path, 'current_data.feature')).tests[0]
+    all_tests.append(current_data_test)
 
     return all_tests
 
