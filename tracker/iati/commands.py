@@ -96,6 +96,8 @@ def run_iati_tests(date, refresh):
     except ValueError:
         click.secho(f'Error: No IATI data found for given date ({date}).',
                     fg='red', err=True)
+        click.echo('Perhaps you need to download some, using:', err=True)
+        click.echo('\n    $ flask iati download\n', err=True)
         raise click.Abort()
 
     snapshot_xml_path = join(iati_data_path, snapshot_date)
