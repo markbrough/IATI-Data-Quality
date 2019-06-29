@@ -79,23 +79,18 @@ def run_iati_tests(date, refresh):
     iati_result_path = current_app.config.get('IATI_RESULT_PATH')
     try:
         snapshot_dates = listdir(join(iati_data_path))
-        if snapshot_dates == []:
-            raise FileNotFoundError
-
         if date == 'latest':
             snapshot_date = max(snapshot_dates)
         else:
             if not exists(join(iati_data_path, date)):
                 raise ValueError
             snapshot_date = date
-    except FileNotFoundError:
-        click.secho('Error: No IATI data to test.', fg='red', err=True)
-        click.echo('Perhaps you need to download some, using:', err=True)
-        click.echo('\n    $ flask iati download\n', err=True)
-        raise click.Abort()
     except ValueError:
-        click.secho(f'Error: No IATI data found for given date ({date}).',
-                    fg='red', err=True)
+        if date:
+            click.secho(f'Error: No IATI data found for given date ({date}).',
+                        fg='red', err=True)
+        else:
+            click.secho('Error: No IATI data to test.', fg='red', err=True)
         click.echo('Perhaps you need to download some, using:', err=True)
         click.echo('\n    $ flask iati download\n', err=True)
         raise click.Abort()
