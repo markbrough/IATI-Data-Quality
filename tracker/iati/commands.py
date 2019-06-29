@@ -98,6 +98,13 @@ def run_iati_tests(date, refresh):
                     fg='red', err=True)
         raise click.Abort()
 
+    snapshot_xml_path = join(iati_data_path, snapshot_date)
+    root_output_path = join(iati_result_path, snapshot_date)
+
+    if exists(root_output_path):
+        click.secho('Error: Output path exists.', fg='red', err=True)
+        raise click.Abort()
+
     if refresh:
         click.echo('Downloading latest schemas and codelists ...')
         iatikit.download.standard()
@@ -107,13 +114,6 @@ def run_iati_tests(date, refresh):
     all_tests = utils.load_tests()
 
     click.echo(f'Testing IATI data snapshot ({snapshot_date}) ...')
-    snapshot_xml_path = join(iati_data_path, snapshot_date)
-    root_output_path = join(iati_result_path, snapshot_date)
-
-    if exists(root_output_path):
-        click.secho('Error: Output path exists.', fg='red', err=True)
-        raise click.Abort()
-
     publishers = iatikit.data(path=snapshot_xml_path).publishers
     for publisher in publishers:
         org = models.Organisation.find(publisher.name)
