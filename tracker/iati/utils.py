@@ -22,11 +22,17 @@ def load_tests():
                       if not (x.step_type == 'given' and
                               x.text == 'the activity is current')]
 
-    current_data_test = tester.load_feature(
-        join(base_path, 'current_data.feature')).tests[0]
-    all_tests.append(current_data_test)
-
     return all_tests
+
+
+def load_current_data_test():
+    """Load the current data test."""
+    base_path = join(dirname(current_app.root_path),
+                     'index_indicator_definitions', 'test_definitions')
+    step_definitions = join(base_path, 'step_definitions.py')
+    tester = BDDTester(step_definitions)
+    return tester.load_feature(
+        join(base_path, 'current_data.feature')).tests[0]
 
 
 def slugify(some_text):

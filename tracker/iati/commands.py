@@ -109,6 +109,7 @@ def run_iati_tests(date, refresh):
 
     click.echo('Loading tests ...')
     all_tests = utils.load_tests()
+    all_tests.append(utils.load_current_data_test())
 
     click.echo(f'Testing IATI data snapshot ({snapshot_date}) ...')
     publishers = iatikit.data(path=snapshot_xml_path).publishers
