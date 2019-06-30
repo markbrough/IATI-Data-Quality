@@ -69,7 +69,7 @@ def run_test(test, publisher, output_path, test_condition, **kwargs):
             writer.writerow({
                 'dataset': item.dataset.name,
                 'identifier': item.id,
-                'index': item.etree.getparent().index(item.etree) + 1,
+                'index': item.etree.getparent().index(item.etree),
                 'result': str(result),
                 'hierarchy': hierarchy,
                 'explanation': str(explanation) if not result else '',
