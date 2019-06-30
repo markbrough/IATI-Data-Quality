@@ -44,7 +44,6 @@ def slugify(some_text):
 
 def run_test(test, publisher, output_path, test_condition, **kwargs):
     """Run test for a given publisher, and output results to a CSV."""
-    summary = {True: 0, False: 0, None: 0}
     fieldnames = ['dataset', 'identifier', 'index', 'result',
                   'hierarchy', 'explanation']
     tags = test.tags + test.feature.tags
@@ -67,7 +66,6 @@ def run_test(test, publisher, output_path, test_condition, **kwargs):
             hierarchy = item.etree.get('hierarchy')
             if not hierarchy:
                 hierarchy = '1'
-            summary[result] += 1
             writer.writerow({
                 'dataset': item.dataset.name,
                 'identifier': item.id,
@@ -76,4 +74,3 @@ def run_test(test, publisher, output_path, test_condition, **kwargs):
                 'hierarchy': hierarchy,
                 'explanation': str(explanation) if not result else '',
             })
-    return dict(summary)

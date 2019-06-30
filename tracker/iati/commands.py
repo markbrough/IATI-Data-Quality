@@ -128,7 +128,6 @@ def run_iati_tests(date, refresh):
             output_filepath = join(output_path,
                                    utils.slugify(test.name) + '.csv')
             click.echo(f'  {test} ...')
-            summary = utils.run_test(test, publisher, output_filepath,
-                                     org.test_condition, codelists=codelists,
-                                     today=snapshot_date)
-            click.echo(f'    {summary}')
+            utils.run_test(test, publisher, output_filepath,
+                           org.test_condition, codelists=codelists,
+                           today=snapshot_date)
