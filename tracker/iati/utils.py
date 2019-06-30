@@ -44,6 +44,7 @@ def slugify(some_text):
 
 def run_test(test, publisher, output_path, test_condition, **kwargs):
     """Run test for a given publisher, and output results to a CSV."""
+    result_lookup = {True: 'pass', False: 'fail', None: 'not relevant'}
     fieldnames = ['dataset', 'identifier', 'index', 'result',
                   'hierarchy', 'explanation']
     tags = test.tags + test.feature.tags
@@ -70,7 +71,7 @@ def run_test(test, publisher, output_path, test_condition, **kwargs):
                 'dataset': item.dataset.name,
                 'identifier': item.id,
                 'index': item.etree.getparent().index(item.etree),
-                'result': str(result),
+                'result': result_lookup.get(result),
                 'hierarchy': hierarchy,
                 'explanation': str(explanation) if not result else '',
             })
