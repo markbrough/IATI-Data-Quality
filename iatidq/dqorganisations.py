@@ -480,4 +480,8 @@ def get_ordinal_values_years():
             'text': 'Unknown',
             'class': '',
         },
+        None: {
+            'text': 'Unknown',
+            'class': '',
+        },
     }
